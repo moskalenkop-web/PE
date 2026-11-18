@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Основи Інформатики та Комп'ютерних Наук</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#312e81',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-nav {
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-[#070a12] text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+  <!-- ================= HEADER / NAVIGATION ================= -->
+  <header class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-brand-600/20 text-brand-400 rounded-xl border border-brand-500/30 shadow-lg shadow-brand-500/10">
+            <i data-lucide="cpu" class="w-6 h-6"></i>
+          </div>
+          <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-brand-300 bg-clip-text text-transparent">
+            Інформатика.HUB
+          </span>
+        </div>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="#about" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Інформація</a>
+          <a href="#hardware" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Архітектура</a>
+          <a href="#number-systems" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Системи Числення</a>
+          <a href="#converter" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Конвертер</a>
+          <a href="#algorithms" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Алгоритми</a>
+          <a href="#cybersecurity" class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-colors">Безпека</a>
+        </nav>
+
+        <!-- Action / Mobile Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="#converter" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-600/20 transition-all transform hover:-translate-y-0.5">
+            <i data-lucide="calculator" class="w-4 h-4"></i>
+            <span>Інструменти</span>
+          </a>
+          <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Dropdown -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800 bg-[#0b101d] px-4 pt-3 pb-4 space-y-1">
+      <a href="#about" class="block px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Інформація та Дані</a>
+      <a href="#hardware" class="block px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Архітектура Комп'ютера</a>
+      <a href="#number-systems" class="block px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Системи Числення</a>
+      <a href="#converter" class="block px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Інтерактивний Конвертер</a>
+      <a href="#algorithms" class="block px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Алгоритми та Код</a>
+      <a href="#cybersecurity" class="block px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800">Мережі та Безпека</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-32 border-b border-slate-800/50">
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-brand-600/15 blur-[140px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-10 right-10 w-80 h-80 bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-10 left-10 w-80 h-80 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/60 text-brand-300 text-xs sm:text-sm font-medium mb-8">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Інтерактивний Довідник та Тренажер
+      </div>
+
+      <!-- Full, complete title -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 leading-tight">
+        Основи Інформатики та <br class="hidden sm:inline" />
+        <span class="bg-gradient-to-r from-brand-400 via-indigo-300 to-cyan-400 bg-clip-text text-transparent">
+          Комп'ютерних Наук
+        </span>
+      </h1>
+
+      <p class="max-w-3xl mx-auto text-base sm:text-lg text-slate-400 mb-10 leading-relaxed">
+        Фундаментальне керівництво цифровим світом: від кодування бітів та апаратури комп'ютера до алгоритмів, веб-мереж та сучасної кібербезпеки.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#about" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-xl shadow-brand-600/25 transition-all flex items-center justify-center gap-2">
+          <span>Розпочати Огляд</span>
+          <i data-lucide="arrow-down-circle" class="w-5 h-5"></i>
+        </a>
+        <a href="#converter" class="w-full sm:w-auto px-7 py-3.5 rounded-xl glass-card hover:bg-slate-800 text-slate-200 font-semibold border border-slate-700/60 transition-all flex items-center justify-center gap-2">
+          <i data-lucide="binary" class="w-5 h-5 text-cyan-400"></i>
+          <span>Онлайн Конвертер</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-grow space-y-24 py-20">
+
+    <!-- ================= SECTION 1: INFORMATION & DATA ================= -->
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-2">Розділ 1</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Інформація та Дані</p>
+        <p class="mt-3 text-slate-400 text-sm sm:text-base">
+          Зрозумійте фундаментальну різницю між поняттями інформації, даних і тим, як вони зберігаються в цифрових системах.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="glass-card p-8 rounded-2xl border-l-4 border-l-brand-500 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="p-3 bg-brand-500/10 text-brand-400 rounded-xl">
+              <i data-lucide="file-text" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Що таке Дані?</h3>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            <strong>Дані</strong> — це зафіксовані факти, сигнали або спостереження, представлені у формалізованому вигляді, при придатному для обробки та передачі (наприклад, сухі числа, набір символів чи пікселі).
+          </p>
+        </div>
+
+        <div class="glass-card p-8 rounded-2xl border-l-4 border-l-cyan-500 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl">
+              <i data-lucide="lightbulb" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Що таке Інформація?</h3>
+          </div>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            <strong>Інформація</strong> — це осмислені та інтерпретовані дані, які зменшують невизначеність і несуть новий зміст для людини чи інтелектуальної системи.
+          </p>
+        </div>
+      </div>
+
+      <!-- Units Table -->
+      <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800">
+        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+          <i data-lucide="database" class="w-5 h-5 text-brand-400"></i>
+          Одиниці Вимірювання Інформації
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center">
+            <div class="text-xs text-brand-400 font-mono mb-1">1 Біт (Bit)</div>
+            <div class="text-white font-bold text-sm">0 або 1</div>
+            <div class="text-[11px] text-slate-500 mt-1">Мінімальний сигнал</div>
+          </div>
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center">
+            <div class="text-xs text-cyan-400 font-mono mb-1">1 Байт (Byte)</div>
+            <div class="text-white font-bold text-sm">8 біт</div>
+            <div class="text-[11px] text-slate-500 mt-1">1 символ (ASCII)</div>
+          </div>
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center">
+            <div class="text-xs text-emerald-400 font-mono mb-1">1 КБ (Кілобайт)</div>
+            <div class="text-white font-bold text-sm">1024 байти</div>
+            <div class="text-[11px] text-slate-500 mt-1">Невеликий текст</div>
+          </div>
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center">
+            <div class="text-xs text-amber-400 font-mono mb-1">1 МБ (Мегабайт)</div>
+            <div class="text-white font-bold text-sm">1024 КБ</div>
+            <div class="text-[11px] text-slate-500 mt-1">1 MP3 пісня</div>
+          </div>
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center">
+            <div class="text-xs text-purple-400 font-mono mb-1">1 ГБ (Гігабайт)</div>
+            <div class="text-white font-bold text-sm">1024 МБ</div>
+            <div class="text-[11px] text-slate-500 mt-1">HD фільм</div>
+          </div>
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-center">
+            <div class="text-xs text-rose-400 font-mono mb-1">1 ТБ (Терабайт)</div>
+            <div class="text-white font-bold text-sm">1024 ГБ</div>
+            <div class="text-[11px] text-slate-500 mt-1">Великий дисковий масив</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 2: HARDWARE ARCHITECTURE ================= -->
+    <section id="hardware" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-2">Розділ 2</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Архітектура Комп'ютера</p>
+        <p class="mt-3 text-slate-400 text-sm sm:text-base">
+          Апаратна складова (Hardware). Базові компоненти класичної архітектури фон Неймана.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- CPU -->
+        <div class="glass-card p-6 rounded-2xl hover:border-brand-500/50 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="cpu" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2">Процесор (CPU)</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Мозок комп'ютера. Виконує арифметичні та логічні операції, керує потоком інструкцій у системі.
+          </p>
+        </div>
+
+        <!-- RAM -->
+        <div class="glass-card p-6 rounded-2xl hover:border-cyan-500/50 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="memory-stick" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2">Оперативна Пам'ять (RAM)</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Енергозалежна надшвидка пам'ять для тимчасового зберігання даних та програм, що виконуються зараз.
+          </p>
+        </div>
+
+        <!-- Storage -->
+        <div class="glass-card p-6 rounded-2xl hover:border-purple-500/50 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="hard-drive" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2">Накопичувач (SSD/HDD)</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Енергонезалежна пам'ять для тривалого зберігання файлів, операційної системи та встановлених програм.
+          </p>
+        </div>
+
+        <!-- Motherboard -->
+        <div class="glass-card p-6 rounded-2xl hover:border-emerald-500/50 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <i data-lucide="circuit-board" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-white mb-2">Материнська Плата</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Головна друкована плата, яка фізично та електрично з'єднує між собою всі компоненти ПК.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 3: NUMBER SYSTEMS & CODING ================= -->
+    <section id="number-systems" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-2">Розділ 3</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Системи Числення та Кодування</p>
+        <p class="mt-3 text-slate-400 text-sm sm:text-base">
+          Як обчислювальні системи кодують числовий та текстовий контент.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        <!-- Binary -->
+        <div class="glass-card p-6 rounded-2xl border border-slate-800">
+          <span class="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">Base-2</span>
+          <h3 class="text-xl font-bold text-white mt-1 mb-3">Двійкова Система</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            Використовує тільки дві цифри: <strong>0</strong> та <strong>1</strong>. Ідеально підходить для електронних схем з двома станами (є напруга / немає напруги).
+          </p>
+          <div class="bg-slate-900 p-3 rounded-lg font-mono text-xs text-cyan-300">
+            Число 9 = 1001<sub>2</sub>
+          </div>
+        </div>
+
+        <!-- Octal -->
+        <div class="glass-card p-6 rounded-2xl border border-slate-800">
+          <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">Base-8</span>
+          <h3 class="text-xl font-bold text-white mt-1 mb-3">Вісімкова Система</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            Використовує цифри від <strong>0</strong> до <strong>7</strong>. Коротша форма запису двійкових даних (групування по 3 біти).
+          </p>
+          <div class="bg-slate-900 p-3 rounded-lg font-mono text-xs text-amber-300">
+            Число 9 = 11<sub>8</sub>
+          </div>
+        </div>
+
+        <!-- Hexadecimal -->
+        <div class="glass-card p-6 rounded-2xl border border-slate-800">
+          <span class="text-xs font-mono font-bold text-purple-400 uppercase tracking-widest">Base-16</span>
+          <h3 class="text-xl font-bold text-white mt-1 mb-3">Шістнадцяткова Система</h3>
+          <p class="text-slate-400 text-xs leading-relaxed mb-4">
+            Використовує цифри <strong>0-9</strong> та літери <strong>A-F</strong>. Зручна для представлення адрес пам'яті та RGB кольорів у веб.
+          </p>
+          <div class="bg-slate-900 p-3 rounded-lg font-mono text-xs text-purple-300">
+            Число 255 = FF<sub>16</sub>
+          </div>
+        </div>
+      </div>
+
+      <!-- Encoding Standards Box -->
+      <div class="glass-card p-8 rounded-2xl border border-slate-800">
+        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          <i data-lucide="file-code" class="w-5 h-5 text-brand-400"></i>
+          Кодування Тексту: ASCII та Unicode (UTF-8)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+          <div>
+            <h4 class="font-bold text-white mb-2">ASCII (8-бітний стандарт)</h4>
+            <p class="text-xs leading-relaxed text-slate-400">
+              Містить 128 основних символів (латинські літери, цифри, розділові знаки). Кожен символ займає точно 1 байт.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-bold text-white mb-2">Unicode / UTF-8 (Універсальний)</h4>
+            <p class="text-xs leading-relaxed text-slate-400">
+              Підтримує понад 140 000 символів з усіх мов світу, емодзі та спеціальні знаки. Довжина символу становить від 1 до 4 байт.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 4: INTERACTIVE TOOLS ================= -->
+    <section id="converter" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-brand-500/20 relative overflow-hidden">
+        <div class="max-w-3xl mx-auto text-center mb-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 text-xs font-semibold mb-3">
+            <i data-lucide="calculator" class="w-4 h-4"></i>
+            Інтерактивна Лабораторія
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Інтерактивні Конвертери</h2>
+          <p class="text-slate-400 text-sm sm:text-base">
+            Використовуйте конвертери для миттєвого переведення між системами числення та розрахунку обсягів даних.
+          </p>
+        </div>
+
+        <!-- Tool 1: Number Converter -->
+        <div class="mb-12">
+          <h3 class="text-base font-bold text-white mb-4 text-center sm:text-left">1. Конвертер Систем Числення</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 focus-within:border-brand-500 transition-all">
+              <label class="block text-xs font-semibold text-brand-400 uppercase tracking-wider mb-2">Десяткова (DEC)</label>
+              <input type="number" id="num-dec" placeholder="Наприклад: 255" oninput="convertBase('dec')" class="w-full bg-slate-950 text-white font-mono text-lg px-4 py-3 rounded-xl border border-slate-800 focus:outline-none">
+            </div>
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 focus-within:border-cyan-500 transition-all">
+              <label class="block text-xs font-semibold text-cyan-400 uppercase tracking-wider mb-2">Двійкова (BIN)</label>
+              <input type="text" id="num-bin" placeholder="Наприклад: 11111111" oninput="convertBase('bin')" class="w-full bg-slate-950 text-white font-mono text-lg px-4 py-3 rounded-xl border border-slate-800 focus:outline-none">
+            </div>
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800 focus-within:border-purple-500 transition-all">
+              <label class="block text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2">Шістнадцяткова (HEX)</label>
+              <input type="text" id="num-hex" placeholder="Наприклад: FF" oninput="convertBase('hex')" class="w-full bg-slate-950 text-white font-mono text-lg uppercase px-4 py-3 rounded-xl border border-slate-800 focus:outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tool 2: Data Units Converter -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4 text-center sm:text-left">2. Перерахунок Обсягу Пам'яті</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+              <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Мегабайти (МБ)</label>
+              <input type="number" id="data-mb" placeholder="Наприклад: 1024" oninput="convertData('mb')" class="w-full bg-slate-950 text-white font-mono text-lg px-4 py-3 rounded-xl border border-slate-800 focus:outline-none">
+            </div>
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+              <label class="block text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2">Гігабайти (ГБ)</label>
+              <input type="number" id="data-gb" placeholder="Наприклад: 1" oninput="convertData('gb')" class="w-full bg-slate-950 text-white font-mono text-lg px-4 py-3 rounded-xl border border-slate-800 focus:outline-none">
+            </div>
+            <div class="bg-slate-900/90 p-5 rounded-2xl border border-slate-800">
+              <label class="block text-xs font-semibold text-rose-400 uppercase tracking-wider mb-2">Еквівалент у Байтах</label>
+              <input type="text" id="data-bytes" readonly class="w-full bg-slate-950/50 text-slate-400 font-mono text-lg px-4 py-3 rounded-xl border border-slate-800/80 outline-none">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SECTION 5: ALGORITHMS & PROGRAMMING ================= -->
+    <section id="algorithms" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-2">Розділ 5</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Алгоритми та Програмування</p>
+        <p class="mt-3 text-slate-400 text-sm sm:text-base">
+          Фундаментальні конструкції створення алгоритмів та мови розробки програмного забезпечення.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        <div class="glass-card p-6 rounded-2xl border-t-4 border-t-brand-500">
+          <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center mb-4">
+            <i data-lucide="arrow-right-circle" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-lg mb-2">1. Послідовність (Linear)</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Інструкції виконуються крок за кроком, строго в тому порядку, у якому вони записані в програмі.
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border-t-4 border-t-cyan-500">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4">
+            <i data-lucide="git-fork" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-lg mb-2">2. Розгалуження (Branching)</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Виконання певної гілки коду залежно від перевірки умови (істина / хиба: <code>if / else</code>).
+          </p>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border-t-4 border-t-purple-500">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4">
+            <i data-lucide="repeat" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-bold text-white text-lg mb-2">3. Цикл (Iteration)</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Повторення конкретного блоку команд певну кількість разів або поки виконується умова (<code>for / while</code>).
+          </p>
+        </div>
+      </div>
+
+      <!-- Languages overview -->
+      <div class="glass-card p-8 rounded-2xl border border-slate-800">
+        <h3 class="text-xl font-bold text-white mb-6">Популярні Мови Програмування</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+            <div class="text-amber-400 font-bold text-lg mb-1">Python</div>
+            <p class="text-xs text-slate-400 leading-relaxed">Простий синтаксис. Застосовується в штучному інтелекті, аналізі даних та веб-розробці.</p>
+          </div>
+          <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+            <div class="text-yellow-300 font-bold text-lg mb-1">JavaScript</div>
+            <p class="text-xs text-slate-400 leading-relaxed">Мова браузерів та веб-інтерфейсів. Робить сайти інтерактивними та динамічними.</p>
+          </div>
+          <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+            <div class="text-blue-400 font-bold text-lg mb-1">C++</div>
+            <p class="text-xs text-slate-400 leading-relaxed">Високопродуктивна мова для розробки ігор, операційних систем та системного ПЗ.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SECTION 6: NETWORKS & CYBERSECURITY ================= -->
+    <section id="cybersecurity" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-2">Розділ 6</h2>
+        <p class="text-3xl sm:text-4xl font-extrabold text-white">Комп'ютерні Мережі та Кібербезпека</p>
+        <p class="mt-3 text-slate-400 text-sm sm:text-base">
+          Основи роботи мереж Інтернет та правила захисту даних у цифровому просторі.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <!-- Network Concepts -->
+        <div class="glass-card p-8 rounded-2xl border border-slate-800 space-y-4">
+          <h3 class="text-xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="globe" class="w-5 h-5 text-cyan-400"></i>
+            Як Працює Інтернет?
+          </h3>
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-cyan-400 font-bold">•</span>
+              <span><strong>IP-адреса:</strong> Унікальний числовий ідентифікатор пристрою в мережі (наприклад, 192.168.1.1).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-cyan-400 font-bold">•</span>
+              <span><strong>DNS (Domain Name System):</strong> "Телефонна книга" Інтернету, яка перетворює назви сайтів (google.com) на IP-адреси.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-cyan-400 font-bold">•</span>
+              <span><strong>HTTP / HTTPS:</strong> Протоколи передачі веб-сторінок. HTTPS забезпечує шифрування трафіку.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Security Rules -->
+        <div class="glass-card p-8 rounded-2xl border border-slate-800 space-y-4">
+          <h3 class="text-xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="shield-alert" class="w-5 h-5 text-rose-400"></i>
+            Правила Цифрової Безпеки
+          </h3>
+          <ul class="space-y-3 text-xs text-slate-300">
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>Складні паролі:</strong> Використовуйте комбінацію літер, чисел та символів не коротше 12 знаків.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>2FA (Двофакторна автентифікація):</strong> Додатковий захист акаунту через підтвердження на смартфоні.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">•</span>
+              <span><strong>Захист від Фішингу:</strong> Не переходьте за підозрілими посиланнями в листі або повідомленнях.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-slate-800 bg-[#05080f] py-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        <div>
+          <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+            <i data-lucide="cpu" class="w-5 h-5 text-brand-400"></i>
+            <span class="font-bold text-white text-base">Основи Інформатики та Комп'ютерних Наук</span>
+          </div>
+          <p class="text-xs text-slate-500">Навчально-довідковий портал для Google Сайтів та самоосвіти</p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-400">
+          <a href="#about" class="hover:text-white transition-colors">Дані</a>
+          <a href="#hardware" class="hover:text-white transition-colors">Архітектура</a>
+          <a href="#number-systems" class="hover:text-white transition-colors">Системи Числення</a>
+          <a href="#converter" class="hover:text-white transition-colors">Конвертер</a>
+          <a href="#algorithms" class="hover:text-white transition-colors">Алгоритми</a>
+          <a href="#cybersecurity" class="hover:text-white transition-colors">Безпека</a>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-4">
+        <p>&copy; 2026 Навчальний матеріал з інформатики. Всі права захищено.</p>
+        <p class="font-mono text-[11px]">Готово для вбудовування в Google Sites</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Converter 1: Bases
+    function convertBase(source) {
+      const decInput = document.getElementById('num-dec');
+      const binInput = document.getElementById('num-bin');
+      const hexInput = document.getElementById('num-hex');
+
+      let valDecimal = NaN;
+
+      if (source === 'dec') {
+        valDecimal = parseInt(decInput.value, 10);
+      } else if (source === 'bin') {
+        valDecimal = parseInt(binInput.value.trim(), 2);
+      } else if (source === 'hex') {
+        valDecimal = parseInt(hexInput.value.trim(), 16);
+      }
+
+      if (isNaN(valDecimal)) {
+        if (source !== 'dec') decInput.value = '';
+        if (source !== 'bin') binInput.value = '';
+        if (source !== 'hex') hexInput.value = '';
+        return;
+      }
+
+      if (source !== 'dec') decInput.value = valDecimal.toString(10);
+      if (source !== 'bin') binInput.value = valDecimal.toString(2);
+      if (source !== 'hex') hexInput.value = valDecimal.toString(16).toUpperCase();
+    }
+
+    // Converter 2: Data Units
+    function convertData(source) {
+      const mbInput = document.getElementById('data-mb');
+      const gbInput = document.getElementById('data-gb');
+      const bytesInput = document.getElementById('data-bytes');
+
+      if (source === 'mb') {
+        const mb = parseFloat(mbInput.value);
+        if (isNaN(mb)) {
+          gbInput.value = '';
+          bytesInput.value = '';
+          return;
+        }
+        gbInput.value = (mb / 1024).toFixed(3);
+        bytesInput.value = (mb * 1024 * 1024).toLocaleString() + ' Б';
+      } else if (source === 'gb') {
+        const gb = parseFloat(gbInput.value);
+        if (isNaN(gb)) {
+          mbInput.value = '';
+          bytesInput.value = '';
+          return;
+        }
+        mbInput.value = (gb * 1024).toFixed(0);
+        bytesInput.value = (gb * 1024 * 1024 * 1024).toLocaleString() + ' Б';
+      }
+    }
+
+    // Default Init
+    document.getElementById('num-dec').value = 255;
+    convertBase('dec');
+    document.getElementById('data-gb').value = 1;
+    convertData('gb');
+  </script>
+</body>
+</html>
